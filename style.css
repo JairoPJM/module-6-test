@@ -1,0 +1,6 @@
+.card{
+    background-color: darkslategray;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}

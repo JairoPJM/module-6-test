@@ -1,51 +1,24 @@
-// 143046b23dd0ddf39030f9ddd6da7da6
-
-// api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-// api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
-
-var timeNow=moment().format("MMMM Do YYYY")
-console.log(timeNow)
-var day1=moment().add([1], 'days').format("MMMM Do YYYY")
-var day2=moment().add([2], 'days').format("MMMM Do YYYY")
-var day3=moment().add([3], 'days').format("MMMM Do YYYY")
-var day4=moment().add([4], 'days').format("MMMM Do YYYY")
-var day5=moment().add([5], 'days').format("MMMM Do YYYY")
-
-console.log(day1)
-console.log(day2)
-console.log(day3)
-console.log(day4)
-console.log(day5)
+const apiKey=`143046b23dd0ddf39030f9ddd6da7da6`
+const apiLink=`https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}`
+const geoCode=`http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`
 
 
-var input=document.querySelector("#fname")
-var wBtn=document.querySelector("#btn")
-wBtn.addEventListener("click",anything)
+const testCity="Atlanta"
+const atlantaCords=
+
+getData()
+
+async function getData(){
+const response= await fetch("https://api.openweathermap.org/data/2.5/weather?q=london&appid=143046b23dd0ddf39030f9ddd6da7da6&units=imperial")
+const data = await response.json()
+// console.log(data)
+const temp=data.main.temp
+const wind=data.wind.speed
+const humidity=data.main.humidity
 
 
-function anything(){
-    let urlWeather=`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&appid=143046b23dd0ddf39030f9ddd6da7da6`
 
-    fetch(urlWeather)
-    .then(response=>response.json())
-    .then(function(data){
-        console.log(data)
-        console.log(data.list[0].main.temp)
-        console.log(data.list[0].wind.speed)
-        console.log(data.list[0].main.humidity)
-
-    })}
-
-function name(params) {
-    
+const tempElement = document.getElementById("temp");
+tempElement.innerHTML = `temp : ${temp}`
+console.log(tempElement)
 }
-
-array.forEach(element => {
-    
-});
-
-for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-    
-}
-
