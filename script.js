@@ -2,15 +2,34 @@ const apiKey=`143046b23dd0ddf39030f9ddd6da7da6`
 const apiLink=`api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`
 const geoCode=`http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`
 
-const searchBtn=document.querySelector(".btn").onclick=()=>{
-    let searchBox=document.querySelector("input[name=city]")
-    let searchName=searchBox.value
+// onclick make a function to save the innerhtml=searchnameValue
+
+
+const searchBtn = document.querySelector(".btn").onclick = () => {
+    let searchBox = document.querySelector("input[name=city]")
+    let searchName = searchBox.value
+
+    let searches = localStorage.getItem("searches")
+    if (searches === null) {
+        searches = []
+    } else {
+        searches = JSON.parse(searches)
+    }
+    searches.push(searchName)
+    localStorage.setItem("searches", JSON.stringify(searches))
+    let savedSearch=JSON.parse(localStorage.getItem("searches"))
+    console.log(savedSearch)
+    for (let i = 0; i < savedSearch.length; i++) {
+        let searches=(savedSearch[i]);
+        console.log(searches)
+    // console.log(document.getElementById("searches").value)
+    // Add searchbox.value to local storage
+    // get local storage -1 to .value
+
     getLocation()
-    console.log(searchName)
     event.preventDefault()
+    }
     
-
-
 async function getLocation(){
     const response= await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchName}&limit=1&appid=${apiKey}`)
     const data = await response.json()
@@ -22,12 +41,19 @@ async function getLocation(){
 async function getWeather(){
 const response= await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
 const data2 = await response.json()
-console.log(data2)
-console.log(data2.list[0].weather[0].icon)
+// console.log(data2)
+// console.log(data2.list[0].weather[0].icon)
     htmlPost()
-console.log(`http://openweathermap.org/img/wn/${data2.list[0].weather[0].icon}@2x.png`)
+// console.log(`http://openweathermap.org/img/wn/${data2.list[0].weather[0].icon}@2x.png`)
     function htmlPost(){
-        // Current data
+        let wholeData={}
+        document.getElementById("history").getElementsByTagName("button")[0]
+        .innerHTML=`${searchName}`;
+        document.getElementById("history").getElementsByTagName("button")[1]
+        .innerHTML=`${searchName}`;
+        document.getElementById("history").getElementsByTagName("button")[2]
+        .innerHTML=`${searchName}`;
+    
         
         document.getElementById("current").getElementsByTagName("h2")[0]
         .innerHTML=`${searchName} (${data2.list[0].dt_txt.slice(0,10)}) <img src= http://openweathermap.org/img/wn/${data2.list[0].weather[0].icon}@2x.png />`
@@ -86,5 +112,7 @@ document.getElementById("cards1").getElementsByTagName("p")[2]
                 .innerHTML = `Wind: ${data2.list[39].wind.speed}`;
                 document.getElementById("cards5").getElementsByTagName("p")[2]
                 .innerHTML = `Humidity: ${data2.list[39].main.humidity}%`;
-    
-}}}}
+
+
+}}}
+}
