@@ -6,7 +6,7 @@
     </p>
 
 ## Description 
-This is a weather application that will give you the weather of a certain city. In increments of 5 days.
+This is a weather application that will give you the weather of a certain city. In increments of 5 days. This was built using openweathers geoLocations api and their 5 day weather report api. In javascript,html,and css
 
 ## Acceptance Criteria 📩
 ~~~
@@ -29,6 +29,7 @@ THEN I am again presented with current and future conditions for that city
 
 ## Installation
 No installation is really needed for this application. Only a browser like google chrome or firefox etc
+
 
 ## License ![License Badge](https://img.shields.io/badge/license-Unlicense-blue.svg)
   The Unlicense
