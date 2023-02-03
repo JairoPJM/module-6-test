@@ -1,95 +1,104 @@
-body{
+body {
     height: 100%;
     width: 100%;
     margin: 0;
-}
-header{
+    padding: 0;
+  }
+  
+  header {
     width: 100%;
     height: 100px;
-    color: white;
-    background:teal;
+    color: White;
+    background: rgb(120, 116, 138);
     background: linear-gradient(
-        90deg,
-        teal 0%,blue 59%
+      90deg, 
+      rgba(79,47,212,1) 15%, 
+      rgba(33,25,138,1) 53%, 
+      rgba(4,9,85,1) 100%
     );
     display: flex;
     align-items: center;
-}
-header h1{
+  }
+  
+  header h1 {
     width: fit-content;
-    margin:0 auto;
-}
-main{
+    margin: 0 auto;
+  }
+  
+  main {
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 10 30px;
-    
-}
-aside{
-    flex:auto;
-    position: absolute;
-    justify-content: right;
-    align-items: stretch;
-    /* background-color: black; */
+    padding: 0 30px;
+  }
+  
+  aside {
     width: 300px;
     padding: 5px;
-
-}
-form{
+  }
+  
+  form {
     display: flex;
     flex-direction: column;
-}
-form input{
+  }
+  
+  form input {
     margin: 5px;
-}
-#history{
+  }
+  
+  #record {
     display: flex;
     flex-direction: column;
     padding-top: 5px;
-    margin-top:5px ;
+    margin-top: 5px;
+  }
+  
+  button {
+    margin: 5px;
+  }
+  
+  #record {
     width: 100%;
     border-top: gray 2px solid;
     
-    
-}
-button{
-    margin:5px;
-}
-#weather-display{
-    position:relative;
-    left: 320px;
-    padding: px;
+  }
+  
+  #weather-display {
+    padding: 5px;
     width: 100%;
     height: 100%;
-    /* background-color: black; */
-}
-#current{
+  }
+  
+  #current {
     width: 100%;
-    height: 300px;
+    height: 250px;
     border: 1px solid black;
-    padding:10px;
-}
-#forecast{
+    padding: 10px;
+  }
+  
+  #forecast {
     width: 100%;
-
-}
-.group{
-    padding: 0px;
+  }
+  
+  #cards {
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* justify-content: space-evenly; */
-}
-#cards1,#cards2,#cards3,#cards4,#cards5{
-    background-color: rgb(21, 134, 226);
+    justify-content: space-evenly;
+  }
+  
+  .card {
+    background-color:rgba(4, 4, 51, 0.767);
     color: white;
     display: flex;
     flex-direction: column;
     width: 200px;
-    padding: 20px;
-    height: 350px;
-    left: 2px;
-    
-}
+    padding: 5px;
+    height: 320px;
+  }
+  
+  .card img {
+    width: 30px;
+    height: 30px;
+  }

@@ -1,118 +1,154 @@
-const apiKey=`143046b23dd0ddf39030f9ddd6da7da6`
-const apiLink=`api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`
-const geoCode=`http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`
+//apikey to have permission to fetch data
+const apiKey = "9f22897565b785c5e1809cff5dde2ef9";
 
-// onclick make a function to save the innerhtml=searchnameValue
+var cities = document.getElementById("city-input");
+var worldCities = [];
+
+// handles search button form
+function searchCity(event) {
+    event.preventDefault();
+    const towns = cities.value;
+
+    //checks if what we searched already exists
+    //If not, then push new search to empty array
+        if (worldCities.includes(towns) === false ) {
+        worldCities.push(towns);
+        //save to local storage
+        localStorage.setItem("history",JSON.stringify(worldCities));
 
 
-const searchBtn = document.querySelector(".btn").onclick = () => {
-    let searchBox = document.querySelector("input[name=city]")
-    let searchName = searchBox.value
-
-    let searches = localStorage.getItem("searches")
-    if (searches === null) {
-        searches = []
-    } else {
-        searches = JSON.parse(searches)
+        displayCities();
     }
-    searches.push(searchName)
-    localStorage.setItem("searches", JSON.stringify(searches))
-    let savedSearch=JSON.parse(localStorage.getItem("searches"))
-    console.log(savedSearch)
-    for (let i = 0; i < savedSearch.length; i++) {
-        let searches=(savedSearch[i]);
-        console.log(searches)
-    // console.log(document.getElementById("searches").value)
-    // Add searchbox.value to local storage
-    // get local storage -1 to .value
-
-    getLocation()
-    event.preventDefault()
-    }
+ 
+    getCoords(towns);   
     
-async function getLocation(){
-    const response= await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchName}&limit=1&appid=${apiKey}`)
-    const data = await response.json()
-    const lat =data[0].lat
-    const lon=data[0].lon
-    // console.log(lat ,lon)
-    getWeather()
-
-async function getWeather(){
-const response= await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
-const data2 = await response.json()
-// console.log(data2)
-// console.log(data2.list[0].weather[0].icon)
-    htmlPost()
-// console.log(`http://openweathermap.org/img/wn/${data2.list[0].weather[0].icon}@2x.png`)
-    function htmlPost(){
-        let wholeData={}
-        document.getElementById("history").getElementsByTagName("button")[0]
-        .innerHTML=`${searchName}`;
-        document.getElementById("history").getElementsByTagName("button")[1]
-        .innerHTML=`${searchName}`;
-        document.getElementById("history").getElementsByTagName("button")[2]
-        .innerHTML=`${searchName}`;
-    
-        
-        document.getElementById("current").getElementsByTagName("h2")[0]
-        .innerHTML=`${searchName} (${data2.list[0].dt_txt.slice(0,10)}) <img src= http://openweathermap.org/img/wn/${data2.list[0].weather[0].icon}@2x.png />`
-        document.getElementById("current").getElementsByTagName("p")[0]
-        .innerHTML = `Temp: ${data2.list[0].main.temp}°F`;
-        document.getElementById("current").getElementsByTagName("p")[1]
-        .innerHTML = `Wind: ${data2.list[0].wind.speed}`;
-        document.getElementById("current").getElementsByTagName("p")[2]
-        .innerHTML = `Humidity: ${data2.list[0].main.humidity}%`;
-
-
-
-
-
-document.getElementById("cards1").getElementsByTagName("h3")[0]
-.innerHTML=`${data2.list[8].dt_txt.slice(0,10)} <img src= http://openweathermap.org/img/wn/${data2.list[8].weather[0].icon}@2x.png />`
-document.getElementById("cards1").getElementsByTagName("p")[0]
-.innerHTML = `Temp: ${data2.list[8].main.temp}°F`;
-document.getElementById("cards1").getElementsByTagName("p")[1]
-.innerHTML = `Wind: ${data2.list[8].wind.speed}`;
-document.getElementById("cards1").getElementsByTagName("p")[2]
-.innerHTML = `Humidity: ${data2.list[8].main.humidity}%`;
-
-    document.getElementById("cards2").getElementsByTagName("h3")[0]
-    .innerHTML=`${data2.list[16].dt_txt.slice(0,10)} <img src= http://openweathermap.org/img/wn/${data2.list[16].weather[0].icon}@2x.png />`
-    document.getElementById("cards2").getElementsByTagName("p")[0]
-    .innerHTML = `Temp: ${data2.list[16].main.temp}°F`;
-    document.getElementById("cards2").getElementsByTagName("p")[1]
-    .innerHTML = `Wind: ${data2.list[16].wind.speed}`;
-    document.getElementById("cards2").getElementsByTagName("p")[2]
-    .innerHTML = `Humidity: ${data2.list[16].main.humidity}%`;
-
-        document.getElementById("cards3").getElementsByTagName("h3")[0]
-        .innerHTML=`${data2.list[24].dt_txt.slice(0,10)} <img src= http://openweathermap.org/img/wn/${data2.list[23].weather[0].icon}@2x.png />`
-        document.getElementById("cards3").getElementsByTagName("p")[0]
-        .innerHTML = `Temp: ${data2.list[24].main.temp}°F`;
-        document.getElementById("cards3").getElementsByTagName("p")[1]
-        .innerHTML = `Wind: ${data2.list[24].wind.speed}`;
-        document.getElementById("cards3").getElementsByTagName("p")[2]
-        .innerHTML = `Humidity: ${data2.list[24].main.humidity}%`;
-
-            document.getElementById("cards4").getElementsByTagName("h3")[0]
-            .innerHTML=`${data2.list[32].dt_txt.slice(0,10)}<img src= http://openweathermap.org/img/wn/${data2.list[30].weather[0].icon}@2x.png />`
-            document.getElementById("cards4").getElementsByTagName("p")[0]
-            .innerHTML = `Temp: ${data2.list[32].main.temp}°F`;
-            document.getElementById("cards4").getElementsByTagName("p")[1]
-            .innerHTML = `Wind: ${data2.list[32].wind.speed}`;
-            document.getElementById("cards4").getElementsByTagName("p")[2]
-            .innerHTML = `Humidity: ${data2.list[32].main.humidity}%`;
-
-                document.getElementById("cards5").getElementsByTagName("h3")[0]
-                .innerHTML=`${data2.list[39].dt_txt.slice(0,10)} <img src= http://openweathermap.org/img/wn/${data2.list[39].weather[0].icon}@2x.png />`
-                document.getElementById("cards5").getElementsByTagName("p")[0]
-                .innerHTML = `Temp: ${data2.list[39].main.temp}°F`;
-                document.getElementById("cards5").getElementsByTagName("p")[1]
-                .innerHTML = `Wind: ${data2.list[39].wind.speed}`;
-                document.getElementById("cards5").getElementsByTagName("p")[2]
-                .innerHTML = `Humidity: ${data2.list[39].main.humidity}%`;
-
-
-}}}
 }
+// adding click function to search button
+var searchButton = document.getElementById("search-btn");
+searchButton.addEventListener("click", searchCity)
+
+// function to fetch the cities coordinates 
+function getCoords(city) {
+    const geoLink = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
+    fetch(geoLink).then((response) => {
+        if (!response.ok) {
+            console.log("Uh oh! Something went wrong fetching the city coordinates");
+        }
+        response.json().then((data) => {
+            const lat = data[0].lat;
+            const lon = data[0].lon;
+
+            // run trough getForecast function
+            getForecast(city, lat, lon);
+        });
+    });
+}
+
+// function to fetch forecast weather (from city coordinates)
+function getForecast(city, lat, lon) {
+    const apiLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    fetch(apiLink).then((response) => {
+        if (!response.ok) {
+            console.log("Uh oh! Something went wrong fetching the forecast");
+        }
+        response.json().then((data) => {
+            const current = data.current;
+            const daily = [];
+
+            for (let i = 0; i < 5; i++) {
+                daily.push(data.daily[i])
+            }
+
+            // create HTML using given data
+            htmlCreater(city, current, daily);
+        });
+    });
+}
+// current board
+var presentBox = document.getElementById("current");
+// 5-day forecast cards
+var foreCastBox = document.getElementById("cards");
+// function to create HTML
+function htmlCreater(city, current, daily) {
+    //destroys all children in current board so we can make copies
+    presentBox.replaceChildren();
+    const presentDate = unixToDate(current.dt);
+    const presentIcon = `http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`
+    // makes data visible in console application tools
+    console.log(city, current, daily);
+    // h2-cityname-date-icon
+    let cityName = document.createElement("h2");
+    cityName.innerHTML = `${city} (${presentDate}) <img src = ${presentIcon} />`;
+    //temperature 
+    const presentTemp = document.createElement("p");
+    presentTemp.textContent = `Temp: ${kelvToFahr(current.temp)}°F`
+    
+    //wind
+    const presentWind = document.createElement("p");
+    presentWind.textContent = `Wind: ${current.wind_speed} MPH`;
+    //humidity
+    const presentHumidity = document.createElement("p");
+    presentHumidity.textContent = `Humidity: ${current.humidity}%`
+    presentBox.appendChild(cityName);
+    presentBox.appendChild(presentTemp);
+    presentBox.appendChild(presentWind);
+    presentBox.appendChild(presentHumidity);
+    //destroys all children in 5-day forecast cards so we can make copies
+    foreCastBox.replaceChildren();
+    for (let i = 0; i < daily.length; i++) {
+        const day =daily[i];
+        //card
+        const dayCard = document.createElement("div");
+        dayCard.className = "card";
+        dayCard.innerHTML = `
+        <h2>${unixToDate(day.dt)}</h2>
+        <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png"
+        <p>Temp: ${kelvToFahr(day.temp.day)}°F</p>
+        <p>Wind: ${day.wind_speed} MPH</p>
+        <p>Humidity: ${day.humidity}%</p>
+        `;
+        foreCastBox.appendChild(dayCard);
+      
+    }
+   
+}
+//convert unix to readable data format
+function unixToDate(unix) {
+    const date = new Date(unix * 1000);
+    console.log(date);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`
+}
+//function to convert Kelvin units to fahrenheit units
+function kelvToFahr(K) {
+    let F = 1.8 * (K-273) + 32;
+    return F.toFixed(2);
+}
+function displayCities() {
+    //get data from local storage
+    let localData = JSON.parse(localStorage.getItem("history"));
+    // empty array becomes localstorage data
+    if (localData) {
+        worldCities = localData;
+    
+        var record = document.getElementById("record");
+        record.innerHTML = "";
+        //loop through search history and creates buttons for searched cities
+        for ( let i = 0; i < worldCities.length; i++){
+            record.innerHTML += `<button class="btn btn-secondary text-dark directButton" >${worldCities[i]}</button>`
+        }
+        var directButton = document.querySelectorAll(".directButton");
+        for (let i = 0; i < directButton.length; i++){
+            
+            // get textcontent and run fetch
+            directButton[i].addEventListener("click",function(){
+                let city = this.textContent;
+                getCoords(city);
+            })
+        }
+    }
+}
+//load search history on page load
+displayCities();
